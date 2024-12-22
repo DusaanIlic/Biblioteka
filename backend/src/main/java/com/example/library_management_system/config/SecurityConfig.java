@@ -15,13 +15,14 @@ public class SecurityConfig {
         httpSecurity.csrf(
                 csrf -> csrf
                         .ignoringRequestMatchers("/User/**")
-                        .ignoringRequestMatchers("/login")) // Disable CSRF globally
+                        .ignoringRequestMatchers("/login")
+                        .ignoringRequestMatchers("/Book/**"))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/User/**").permitAll()
                         .requestMatchers("/").permitAll()
                         .requestMatchers("/**").permitAll()
-                        .requestMatchers("/login").permitAll()// Allow all requests under /User
-                        .anyRequest().authenticated() // Protect everything else
+                        .requestMatchers("/login").permitAll()
+                        .anyRequest().authenticated()
                 );
 
         return httpSecurity.build();
