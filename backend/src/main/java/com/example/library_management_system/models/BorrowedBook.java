@@ -1,6 +1,7 @@
 package com.example.library_management_system.models;
 
 import jakarta.persistence.*;
+
 import java.time.LocalDate;
 
 @Entity
@@ -13,8 +14,8 @@ public class BorrowedBook {
 
     private String firstname;
     private String lastname;
-    private String dateTake;
-    private String dateReturn;
+    private LocalDate dateTake;
+    private LocalDate dateReturn;
     private Integer idBook;
 
     // Getteri i setteri
@@ -27,11 +28,11 @@ public class BorrowedBook {
     public String getLastname() { return lastname; }
     public void setLastname(String lastname) { this.lastname = lastname; }
 
-    public String getDateTake() { return dateTake; }
-    public void setDateTake(String date_take) { this.dateTake = date_take; }
+    public LocalDate getDateTake() { return dateTake; }
+    public void setDateTake(LocalDate date_take) { this.dateTake = date_take; }
 
-    public String getDateReturn() { return dateReturn; }
-    public void setDateReturn(String date_return) { this.dateReturn = date_return; }
+    public LocalDate getDateReturn() { return dateReturn; }
+    public void setDateReturn(LocalDate date_return) { this.dateReturn = date_return; }
 
     public Integer getId_book() { return idBook; }
     public void setId_book(Integer id_book) { this.idBook = id_book; }

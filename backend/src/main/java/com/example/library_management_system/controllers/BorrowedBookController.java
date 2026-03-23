@@ -29,9 +29,9 @@ public class BorrowedBookController {
 
     // Vraćanje knjige
     @PutMapping("/return/{id}")
-    public ResponseEntity<?> returnBook(@PathVariable Integer id, @RequestBody String returnDate) {
+    public ResponseEntity<?> returnBook(@PathVariable Integer id) {
         try {
-            BorrowedBook b = borrowedBookService.returnBook(id, returnDate);
+            BorrowedBook b = borrowedBookService.returnBook(id);
             return ResponseEntity.ok(b);
         } catch(Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());

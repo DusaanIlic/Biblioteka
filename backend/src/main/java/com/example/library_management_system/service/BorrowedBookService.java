@@ -8,6 +8,7 @@ import com.example.library_management_system.repositories.BorrowedBookRepository
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,31 +22,37 @@ public class BorrowedBookService {
     BookRepository bookRepository;
 
     public BorrowedBook borrowBook(BorrowedBook borrowedBook) throws Exception {
-        // Provera da li je knjiga slobodna
         Optional<Book> bookOpt = bookRepository.findById(borrowedBook.getId_book());
         if(bookOpt.isEmpty()) throw new Exception("Book not found");
 
         Book book = bookOpt.get();
-        if("loaned".equals(book.getStatus())) throw new Exception("Book already loaned");
+        if(book.getQuantity() <= 0) throw new Exception("Book not available");
 
-        book.setStatus(BookStatus.loaned);
+        book.setQuantity(book.getQuantity() - 1);
+
+        if(book.getQuantity() == 0) {
+            book.setStatus(BookStatus.loaned);
+        }
+
         bookRepository.save(book);
 
-        // Insert u borrowed_books
+        borrowedBook.setDateTake(LocalDate.now());
+
         return borrowedBookRepository.save(borrowedBook);
     }
 
-    public BorrowedBook returnBook(Integer borrowedBookId, String returnDate) throws Exception {
+    public BorrowedBook returnBook(Integer borrowedBookId) throws Exception {
         Optional<BorrowedBook> borrowOpt = borrowedBookRepository.findById(borrowedBookId);
         if(borrowOpt.isEmpty()) throw new Exception("Borrow record not found");
 
         BorrowedBook borrowedBook = borrowOpt.get();
-        borrowedBook.setDateReturn(returnDate);
+        borrowedBook.setDateReturn(LocalDate.now());
         borrowedBookRepository.save(borrowedBook);
 
         Optional<Book> bookOpt = bookRepository.findById(borrowedBook.getId_book());
         if(bookOpt.isPresent()) {
             Book book = bookOpt.get();
+            book.setQuantity(book.getQuantity() + 1);
             book.setStatus(BookStatus.free);
             bookRepository.save(book);
         }

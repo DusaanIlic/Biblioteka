@@ -1,6 +1,14 @@
 import React, { useState } from 'react';
 import { borrowBook } from '../services/api';
-import '../styles/BorrowForm.css';
+
+import {
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  TextField,
+  Button
+} from '@mui/material';
 
 interface Props {
   bookId: number;
@@ -19,10 +27,8 @@ const BorrowForm: React.FC<Props> = ({ bookId, onClose, onBorrowed }) => {
         id_book: bookId,
         firstname,
         lastname,
-        date_take: new Date().toISOString(),
-        date_return: null
       });
-      onBorrowed(bookId); // smanji quantity u BookList
+      onBorrowed(bookId);
       onClose();
     } catch (err) {
       console.error('Error borrowing book:', err);
@@ -30,35 +36,38 @@ const BorrowForm: React.FC<Props> = ({ bookId, onClose, onBorrowed }) => {
   };
 
   return (
-    <div className="borrow-form-overlay">
-      <div className="borrow-form">
-        <h3>Borrow Book</h3>
-        <form onSubmit={handleSubmit}>
-          <label>
-            First Name:
-            <input
-              type="text"
-              value={firstname}
-              onChange={e => setFirstname(e.target.value)}
-              required
-            />
-          </label>
-          <label>
-            Last Name:
-            <input
-              type="text"
-              value={lastname}
-              onChange={e => setLastname(e.target.value)}
-              required
-            />
-          </label>
-          <div className="buttons">
-            <button type="submit">Borrow</button>
-            <button type="button" onClick={onClose}>Cancel</button>
-          </div>
-        </form>
-      </div>
-    </div>
+    <Dialog open onClose={onClose}>
+      <DialogTitle>Borrow Book</DialogTitle>
+
+      <form onSubmit={handleSubmit}>
+        <DialogContent>
+          <TextField
+            label="First Name"
+            fullWidth
+            margin="normal"
+            value={firstname}
+            onChange={(e) => setFirstname(e.target.value)}
+            required
+          />
+
+          <TextField
+            label="Last Name"
+            fullWidth
+            margin="normal"
+            value={lastname}
+            onChange={(e) => setLastname(e.target.value)}
+            required
+          />
+        </DialogContent>
+
+        <DialogActions>
+          <Button onClick={onClose}>Cancel</Button>
+          <Button type="submit" variant="contained">
+            Borrow
+          </Button>
+        </DialogActions>
+      </form>
+    </Dialog>
   );
 };
 

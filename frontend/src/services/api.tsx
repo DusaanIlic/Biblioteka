@@ -19,7 +19,7 @@ export const searchBooks = (payload: { title?: string; author?: string }) =>
 export const borrowBook = (borrowedBook: any) =>
     API.post('/Borrowed/insert', borrowedBook);
   
-export const returnBook = (id: number, returnDate: string) =>
-    API.put(`/Borrowed/return/${id}`, returnDate);
+export const returnBook = (id: number) =>
+    API.put(`/Borrowed/return/${id}`);
   
-export const getAllBorrowed = () => API.get('/Borrowed/all');
+export const getBorrowedBooks = () => API.get('/Borrowed/all');
