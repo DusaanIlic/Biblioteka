@@ -8,6 +8,6 @@ import java.util.List;
 
 @Repository
 public interface BorrowedBookRepository extends JpaRepository<BorrowedBook, Integer> {
-    List<BorrowedBook> findById_bookAndDate_returnIsNull(Integer id_book);
-    List<BorrowedBook> findByDate_returnIsNull();
+    List<BorrowedBook> findByIdBookAndDateReturnIsNull(Integer id_book);
+    List<BorrowedBook> findByDateReturnIsNull();
 }

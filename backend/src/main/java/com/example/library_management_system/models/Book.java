@@ -14,7 +14,7 @@ public class Book {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private String status = "free"; // default 'free'
+    private BookStatus status = BookStatus.free;
 
 
     public Book() {}
@@ -44,6 +44,6 @@ public class Book {
     public Integer getQuantity() { return quantity; }
     public void setQuantity(Integer quantity) { this.quantity = quantity; }
 
-    public String getStatus() { return status; }
-    public void setStatus(String status) { this.status = status; }
+    public BookStatus getStatus() { return status; }
+    public void setStatus(BookStatus status) { this.status = status; }
 }

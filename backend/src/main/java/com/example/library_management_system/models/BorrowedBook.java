@@ -13,9 +13,9 @@ public class BorrowedBook {
 
     private String firstname;
     private String lastname;
-    private String date_take;
-    private String date_return;
-    private Integer id_book;
+    private String dateTake;
+    private String dateReturn;
+    private Integer idBook;
 
     // Getteri i setteri
     public Integer getId() { return id; }
@@ -27,12 +27,12 @@ public class BorrowedBook {
     public String getLastname() { return lastname; }
     public void setLastname(String lastname) { this.lastname = lastname; }
 
-    public String getDate_take() { return date_take; }
-    public void setDate_take(String date_take) { this.date_take = date_take; }
+    public String getDateTake() { return dateTake; }
+    public void setDateTake(String date_take) { this.dateTake = date_take; }
 
-    public String getDate_return() { return date_return; }
-    public void setDate_return(String date_return) { this.date_return = date_return; }
+    public String getDateReturn() { return dateReturn; }
+    public void setDateReturn(String date_return) { this.dateReturn = date_return; }
 
-    public Integer getId_book() { return id_book; }
-    public void setId_book(Integer id_book) { this.id_book = id_book; }
+    public Integer getId_book() { return idBook; }
+    public void setId_book(Integer id_book) { this.idBook = id_book; }
 }

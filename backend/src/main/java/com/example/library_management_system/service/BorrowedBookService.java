@@ -1,6 +1,7 @@
 package com.example.library_management_system.service;
 
 import com.example.library_management_system.models.Book;
+import com.example.library_management_system.models.BookStatus;
 import com.example.library_management_system.models.BorrowedBook;
 import com.example.library_management_system.repositories.BookRepository;
 import com.example.library_management_system.repositories.BorrowedBookRepository;
@@ -27,8 +28,7 @@ public class BorrowedBookService {
         Book book = bookOpt.get();
         if("loaned".equals(book.getStatus())) throw new Exception("Book already loaned");
 
-        // Update status knjige
-        book.setStatus("loaned");
+        book.setStatus(BookStatus.loaned);
         bookRepository.save(book);
 
         // Insert u borrowed_books
@@ -40,14 +40,13 @@ public class BorrowedBookService {
         if(borrowOpt.isEmpty()) throw new Exception("Borrow record not found");
 
         BorrowedBook borrowedBook = borrowOpt.get();
-        borrowedBook.setDate_return(returnDate);
+        borrowedBook.setDateReturn(returnDate);
         borrowedBookRepository.save(borrowedBook);
 
-        // Update status knjige na free
         Optional<Book> bookOpt = bookRepository.findById(borrowedBook.getId_book());
         if(bookOpt.isPresent()) {
             Book book = bookOpt.get();
-            book.setStatus("free");
+            book.setStatus(BookStatus.free);
             bookRepository.save(book);
         }
 
@@ -55,6 +54,6 @@ public class BorrowedBookService {
     }
 
     public List<BorrowedBook> getAllBorrowed() {
-        return borrowedBookRepository.findByDate_returnIsNull();
+        return borrowedBookRepository.findByDateReturnIsNull();
     }
 }

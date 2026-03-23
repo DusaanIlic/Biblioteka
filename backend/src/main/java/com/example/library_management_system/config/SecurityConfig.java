@@ -18,12 +18,14 @@ public class SecurityConfig {
                 csrf -> csrf
                         .ignoringRequestMatchers("/User/**")
                         .ignoringRequestMatchers("/login")
+                        .ignoringRequestMatchers("/Borrowed/**")
                         .ignoringRequestMatchers("/Book/**"))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/User/**").permitAll()
                         .requestMatchers("/").permitAll()
                         .requestMatchers("/**").permitAll()
                         .requestMatchers("/login").permitAll()
+                        .requestMatchers("/Borrowed/**").permitAll()
                         .anyRequest().authenticated()
                 );
 

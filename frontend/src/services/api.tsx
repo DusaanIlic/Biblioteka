@@ -11,6 +11,15 @@ export const addBook = (book: any) => API.post('/Book/insert', book);
 export const updateBook = (id: number, book: any) => API.put(`/Book/${id}`, book);
 export const deleteBook = (id: number) => API.delete(`/Book/${id}`);
 
-// Search
 export const searchBooks = (payload: { title?: string; author?: string }) =>
   API.post('/Book/search', payload);
+
+
+
+export const borrowBook = (borrowedBook: any) =>
+    API.post('/Borrowed/insert', borrowedBook);
+  
+export const returnBook = (id: number, returnDate: string) =>
+    API.put(`/Borrowed/return/${id}`, returnDate);
+  
+export const getAllBorrowed = () => API.get('/Borrowed/all');
