@@ -1,43 +1,16 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Login from "./pages/LoginPage";
-import Home from "./pages/HomePage";
-import ProtectedRoute from "./components/ProtectedRoute";
-import Books from "./pages/Books";
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import BooksPage from './pages/BooksPage';
+import BookList from './components/BookList';
 
 function App() {
   return (
-    <BrowserRouter>
+    <Router>
       <Routes>
-        <Route path="/login" element={<Login />} />
-
-        <Route
-          path="/"
-          element={
-            <ProtectedRoute>
-              <Home />
-            </ProtectedRoute>
-          }
-        />
-
-        <Route
-          path="/books"
-          element={
-            <ProtectedRoute>
-              <div>Books page</div>
-            </ProtectedRoute>
-          }
-        />
-
-        <Route
-          path="/books"
-          element={
-            <ProtectedRoute>
-              <Books />
-            </ProtectedRoute>
-          }
-        />
+        <Route path="/" element={<BookList />} />
+        <Route path="/books" element={<BooksPage />} />
       </Routes>
-    </BrowserRouter>
+    </Router>
   );
 }
 

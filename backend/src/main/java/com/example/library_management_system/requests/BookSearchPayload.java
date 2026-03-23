@@ -1,25 +1,20 @@
 package com.example.library_management_system.requests;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
-import java.time.LocalDate;
-
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
 public class BookSearchPayload {
     private String title;
     private String author;
-    private Integer quantity;
-    private LocalDate releaseDate;
 
-    public String getTitle() {
-        return title;
+    public BookSearchPayload() {}
+
+    public BookSearchPayload(String title, String author) {
+        this.title = title;
+        this.author = author;
     }
+
+    // Getteri i setteri
+    public String getTitle() { return title; }
+    public void setTitle(String title) { this.title = title; }
+
+    public String getAuthor() { return author; }
+    public void setAuthor(String author) { this.author = author; }
 }
-
-

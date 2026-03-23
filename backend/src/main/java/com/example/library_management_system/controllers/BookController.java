@@ -34,9 +34,17 @@ public class BookController {
     }
 
     private Specification<Book> buildSpecification(BookSearchPayload payload) {
-        return Specification.where(likeFilter("title", payload.getTitle())
-                        .and(likeFilter("author", payload.getAuthor()))
-        );
+        Specification<Book> spec = Specification.where(null);
+
+        if (payload.getTitle() != null && !payload.getTitle().isEmpty()) {
+            spec = spec.and(likeFilter("title", payload.getTitle()));
+        }
+
+        if (payload.getAuthor() != null && !payload.getAuthor().isEmpty()) {
+            spec = spec.and(likeFilter("author", payload.getAuthor()));
+        }
+
+        return spec;
     }
 
     @PostMapping("/search")
