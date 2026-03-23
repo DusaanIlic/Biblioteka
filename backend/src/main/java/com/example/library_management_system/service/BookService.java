@@ -16,7 +16,7 @@ public class BookService {
     BookRepository bookRepository;
 
     public List<Book> getAllBooks() {
-        return bookRepository.findAll(); // assuming koristiš JpaRepository
+        return bookRepository.findAll();
     }
     public Book insert(Book book) {
         return bookRepository.save(book);

@@ -1,7 +1,11 @@
 package com.example.library_management_system.models;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 @Entity
 public class Book {
     @Id
@@ -16,9 +20,7 @@ public class Book {
     @Column(nullable = false)
     private BookStatus status = BookStatus.free;
 
-
     public Book() {}
-
 
     public Book(Integer id_book, String title, String author, String release_date, Integer quantity) {
         this.id_book = id_book;
@@ -28,22 +30,4 @@ public class Book {
         this.quantity = quantity;
     }
 
-    // Getteri i setteri
-    public Integer getId_book() { return id_book; }
-    public void setId_book(Integer id_book) { this.id_book = id_book; }
-
-    public String getTitle() { return title; }
-    public void setTitle(String title) { this.title = title; }
-
-    public String getAuthor() { return author; }
-    public void setAuthor(String author) { this.author = author; }
-
-    public String getRelease_date() { return release_date; }
-    public void setRelease_date(String release_date) { this.release_date = release_date; }
-
-    public Integer getQuantity() { return quantity; }
-    public void setQuantity(Integer quantity) { this.quantity = quantity; }
-
-    public BookStatus getStatus() { return status; }
-    public void setStatus(BookStatus status) { this.status = status; }
 }

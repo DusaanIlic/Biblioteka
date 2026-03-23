@@ -10,13 +10,12 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/Borrowed")
-@CrossOrigin(origins = "http://localhost:5173")
+//@CrossOrigin(origins = "http://localhost:5173")
 public class BorrowedBookController {
 
     @Autowired
     BorrowedBookService borrowedBookService;
 
-    // Dodavanje pozajmljenosti
     @PostMapping("/insert")
     public ResponseEntity<?> borrowBook(@RequestBody BorrowedBook borrowedBook) {
         try {
@@ -27,7 +26,6 @@ public class BorrowedBookController {
         }
     }
 
-    // Vraćanje knjige
     @PutMapping("/return/{id}")
     public ResponseEntity<?> returnBook(@PathVariable Integer id) {
         try {
@@ -38,7 +36,6 @@ public class BorrowedBookController {
         }
     }
 
-    // Svi trenutno pozajmljeni primerci
     @GetMapping("/all")
     public ResponseEntity<List<BorrowedBook>> getAllBorrowed() {
         return ResponseEntity.ok(borrowedBookService.getAllBorrowed());

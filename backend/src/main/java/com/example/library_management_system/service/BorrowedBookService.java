@@ -22,7 +22,7 @@ public class BorrowedBookService {
     BookRepository bookRepository;
 
     public BorrowedBook borrowBook(BorrowedBook borrowedBook) throws Exception {
-        Optional<Book> bookOpt = bookRepository.findById(borrowedBook.getId_book());
+        Optional<Book> bookOpt = bookRepository.findById(borrowedBook.getIdBook());
         if(bookOpt.isEmpty()) throw new Exception("Book not found");
 
         Book book = bookOpt.get();
@@ -49,7 +49,7 @@ public class BorrowedBookService {
         borrowedBook.setDateReturn(LocalDate.now());
         borrowedBookRepository.save(borrowedBook);
 
-        Optional<Book> bookOpt = bookRepository.findById(borrowedBook.getId_book());
+        Optional<Book> bookOpt = bookRepository.findById(borrowedBook.getIdBook());
         if(bookOpt.isPresent()) {
             Book book = bookOpt.get();
             book.setQuantity(book.getQuantity() + 1);
