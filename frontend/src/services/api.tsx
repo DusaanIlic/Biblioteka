@@ -5,7 +5,7 @@ const API = axios.create({
 });
 
 // Book API
-export const getBooks = () => API.post('/Book/search', {}); // prazna pretraga vraća sve
+export const getBooks = () => API.get('/Book/all');
 export const getBookById = (id: number) => API.get(`/Book/${id}`);
 export const addBook = (book: any) => API.post('/Book/insert', book);
 export const updateBook = (id: number, book: any) => API.put(`/Book/${id}`, book);

@@ -15,6 +15,9 @@ public class BookService {
     @Autowired
     BookRepository bookRepository;
 
+    public List<Book> getAllBooks() {
+        return bookRepository.findAll(); // assuming koristiš JpaRepository
+    }
     public Book insert(Book book) {
         return bookRepository.save(book);
     }

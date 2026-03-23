@@ -14,8 +14,8 @@ const BookList: React.FC = () => {
 
   const fetchBooks = async () => {
     try {
-      const res = await getBooks();
-      setBooks(res.data);
+        const res = await getBooks();
+        setBooks(Array.isArray(res.data) ? res.data : []);
     } catch (err) {
       console.error('Error fetching books:', err);
     }

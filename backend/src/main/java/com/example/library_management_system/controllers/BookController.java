@@ -14,10 +14,18 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/Book")
+@CrossOrigin(origins = "http://localhost:5173")
 public class BookController {
 
     @Autowired
     BookService bookService;
+
+    @GetMapping("/all")
+    public ResponseEntity<List<Book>> getAllBooks() {
+        List<Book> books = bookService.getAllBooks();
+        // Ako lista postoji, vrati OK sa JSON nizom
+        return ResponseEntity.ok(books);
+    }
 
     @PostMapping("/insert")
     public Book insert(@RequestBody Book book) {
