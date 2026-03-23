@@ -1,9 +1,6 @@
 package com.example.library_management_system.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class Book {
@@ -15,10 +12,14 @@ public class Book {
     private String release_date;
     private Integer quantity;
 
-    // Konstruktor bez parametara
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private String status = "free"; // default 'free'
+
+
     public Book() {}
 
-    // Konstruktor sa parametrima
+
     public Book(Integer id_book, String title, String author, String release_date, Integer quantity) {
         this.id_book = id_book;
         this.title = title;
@@ -42,4 +43,7 @@ public class Book {
 
     public Integer getQuantity() { return quantity; }
     public void setQuantity(Integer quantity) { this.quantity = quantity; }
+
+    public String getStatus() { return status; }
+    public void setStatus(String status) { this.status = status; }
 }
