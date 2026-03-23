@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { getBooks, deleteBook, borrowBook } from '../services/api';
-
+import { getBooks, deleteBook } from '../services/api';
+import BorrowForm from './BorrowForm';
+import { useNavigate } from 'react-router-dom';
 
 interface Book {
   id_book: number;
@@ -8,17 +9,17 @@ interface Book {
   author: string;
   release_date: string;
   quantity: number;
-  status: 'free' |'borrowed';
 }
 
 const BookList: React.FC = () => {
   const [books, setBooks] = useState<Book[]>([]);
-  const availableBooks = books.filter(b => b.status === 'free');
+  const [borrowBookId, setBorrowBookId] = useState<number | null>(null);
+  const navigate = useNavigate();
 
   const fetchBooks = async () => {
     try {
-        const res = await getBooks();
-        setBooks(Array.isArray(res.data) ? res.data : []);
+      const res = await getBooks();
+      setBooks(Array.isArray(res.data) ? res.data : []);
     } catch (err) {
       console.error('Error fetching books:', err);
     }
@@ -30,31 +31,11 @@ const BookList: React.FC = () => {
     fetchBooks();
   };
 
-  const handleBorrow = async (bookId: number) => {
-    const firstname = prompt("Enter first name");
-    const lastname = prompt("Enter last name");
-    if (!firstname || !lastname) return;
-  
-    // format YYYY-MM-DD
-    const today = new Date();
-    const date_take = today.toISOString().split('T')[0];
-  
-    const payload = {
-      firstname,
-      lastname,
-      date_take,
-      date_return: null, // knjiga tek pozajmljena
-      id_book: bookId
-    };
-  
-    try {
-      await borrowBook(payload);
-      fetchBooks();
-      alert("Book borrowed successfully!");
-    } catch (err) {
-      console.error("Error borrowing book:", err);
-      alert("Failed to borrow book");
-    }
+  // Kada neko pozajmi knjigu, quantity se smanjuje lokalno
+  const handleBorrowed = (id: number) => {
+    setBooks(prev =>
+      prev.map(b => (b.id_book === id ? { ...b, quantity: b.quantity - 1 } : b))
+    );
   };
 
   useEffect(() => {
@@ -62,9 +43,16 @@ const BookList: React.FC = () => {
   }, []);
 
   return (
-    <div>
+    <div className="book-list-container">
       <h2>Books List</h2>
-      <table border={1} cellPadding={5}>
+      <button
+        className="borrowed-btn"
+        onClick={() => navigate('/borrowed')}
+      >
+        View Borrowed Books
+      </button>
+
+      <table className="book-table">
         <thead>
           <tr>
             <th>Title</th>
@@ -82,14 +70,32 @@ const BookList: React.FC = () => {
               <td>{b.release_date}</td>
               <td>{b.quantity}</td>
               <td>
-                <button onClick={() => handleDelete(b.id_book)}>Delete</button>
-                <button onClick={() => handleBorrow(b.id_book)}>Borrow</button>
-                
+                <button
+                  className="borrow-btn"
+                  onClick={() => setBorrowBookId(b.id_book)}
+                  disabled={b.quantity <= 0}
+                >
+                  Borrow
+                </button>
+                <button
+                  className="delete-btn"
+                  onClick={() => handleDelete(b.id_book)}
+                >
+                  Delete
+                </button>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
+
+      {borrowBookId !== null && (
+        <BorrowForm
+          bookId={borrowBookId}
+          onClose={() => setBorrowBookId(null)}
+          onBorrowed={handleBorrowed}
+        />
+      )}
     </div>
   );
 };
