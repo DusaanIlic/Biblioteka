@@ -16,20 +16,35 @@ const Sidebar: React.FC = () => {
         [`& .MuiDrawer-paper`]: { width: drawerWidth, boxSizing: 'border-box' },
       }}
     >
-      {/* Naslov */}
       <Toolbar>
-        <Typography variant="h6">
-          Biblioteka
+        <Typography variant="h6" sx={{ fontWeight: 'bold', color: '#1976d2' }}>
+        📚 Biblioteka
         </Typography>
       </Toolbar>
 
       {/* Linkovi */}
       <List>
-        <ListItemButton onClick={() => navigate("/books")}>
+        <ListItemButton onClick={() => navigate("/books")}
+        sx={{
+            borderRadius: 2,
+            mx: 1,
+            my: 0.5,
+            '&:hover': {
+              backgroundColor: '#e3f2fd'
+            }
+          }}>
           <ListItemText primary="Knjige" />
         </ListItemButton>
 
-        <ListItemButton onClick={() => navigate("/borrowed")}>
+        <ListItemButton onClick={() => navigate("/borrowed")}
+        sx={{
+                borderRadius: 2,
+                mx: 1,
+                my: 0.5,
+                '&:hover': {
+                  backgroundColor: '#e3f2fd'
+               }
+        }}>
           <ListItemText primary="Pozajmljene knjige" />
         </ListItemButton>
       </List>

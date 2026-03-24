@@ -10,15 +10,15 @@ function App() {
     <Router>
       <Box sx={{ display: 'flex' }}>
         
-        {/* Sidebar */}
         <Sidebar />
 
-        {/* Glavni sadržaj */}
         <Box
           component="main"
           sx={{
             flexGrow: 1,
-            p: 3,
+            p: 4,
+            backgroundColor: '#f4f6f8',
+            minHeight: '100vh'
           }}
         >
           <Routes>

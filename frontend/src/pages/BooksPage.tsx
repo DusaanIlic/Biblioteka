@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { getBooks, deleteBook } from '../services/api';
 import BorrowForm from '../components/BorrowForm';
-import { useNavigate } from 'react-router-dom';
 
 import {
   Table,
@@ -30,7 +29,6 @@ const BookPage: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [selectedBook, setSelectedBook] = useState<number | null>(null);
-  const navigate = useNavigate();
 
   const fetchBooks = async () => {
     try {
@@ -69,25 +67,34 @@ const BookPage: React.FC = () => {
 
   return (
     <div>
-        <Typography variant="h5" sx={{ mb: 2 }}>
+      <Typography variant="h4" 
+        sx={{
+          fontWeight: 'bold',
+          mb: 3,
+          color: '#1e293b'
+        }}>
         Kolekcija knjiga
       </Typography>
 
-      <TableContainer component={Paper}>
+      <TableContainer component={Paper} sx={{
+        borderRadius: 3,
+        boxShadow: '0 8px 24px rgba(0,0,0,0.08)',
+        overflow: 'hidden'
+      }}>
       <Table>
         <TableHead>
-          <TableRow>
-            <TableCell><b>Naslov</b></TableCell>
-            <TableCell><b>Autor</b></TableCell>
-            <TableCell><b>Datum izdavanja</b></TableCell>
-            <TableCell><b>Kolicina</b></TableCell>
-            <TableCell><b>Akcije</b></TableCell>
+          <TableRow sx={{background: 'linear-gradient(90deg, #1976d2, #42a5f5)'}}>
+            <TableCell sx={{ color: '#fff', fontWeight: 'bold' }}>Naslov</TableCell>
+            <TableCell sx={{ color: '#fff', fontWeight: 'bold' }}>Autor</TableCell>
+            <TableCell sx={{ color: '#fff', fontWeight: 'bold' }}>Datum izdavanja</TableCell>
+            <TableCell sx={{ color: '#fff', fontWeight: 'bold' }}>Količina</TableCell>
+            <TableCell sx={{ color: '#fff', fontWeight: 'bold' }}>Akcije</TableCell>
           </TableRow>
         </TableHead>
 
         <TableBody>
           {books.map((b) => (
-            <TableRow key={b.id_book}>
+            <TableRow key={b.id_book} sx={{'&:hover': {backgroundColor: '#f1f5f9',transition: '0.2s'}}}>
               <TableCell>{b.title}</TableCell>
               <TableCell>{b.author}</TableCell>
               <TableCell>{b.release_date}</TableCell>
@@ -95,19 +102,35 @@ const BookPage: React.FC = () => {
               <TableCell>
               <Button
                   variant="contained"
-                  color="primary"
-                  sx={{ mr: 1 }}
+                  sx={{
+                    mr: 1,
+                    borderRadius: 2,
+                    textTransform: 'none',
+                    fontWeight: 'bold',
+                    background: 'linear-gradient(90deg, #1976d2, #42a5f5)',
+                    '&:hover': {
+                      background: 'linear-gradient(90deg, #1565c0, #1e88e5)'
+                    }
+                  }}
                   onClick={() => setSelectedBook(b.id_book)}
                 >
-                  Borrow
+                  Pozajmi
                 </Button>
 
                 <Button
                   variant="contained"
-                  color="error"
+                  sx={{
+                    borderRadius: 2,
+                    textTransform: 'none',
+                    fontWeight: 'bold',
+                    background: 'linear-gradient(90deg, #d32f2f, #ef5350)',
+                    '&:hover': {
+                      background: 'linear-gradient(90deg, #c62828, #e53935)'
+                    }
+                  }}
                   onClick={() => handleDelete(b.id_book)}
                 >
-                  Delete
+                  Obriši
                 </Button>
               </TableCell>
             </TableRow>

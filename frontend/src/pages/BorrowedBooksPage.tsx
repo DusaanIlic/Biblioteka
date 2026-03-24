@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { getBorrowedBooks, returnBook } from '../services/api';
-import { useNavigate } from 'react-router-dom';
 
 import {
   Table,
@@ -29,7 +28,6 @@ const BorrowedBooksPage: React.FC = () => {
   const [data, setData] = useState<BorrowedBook[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  const navigate = useNavigate();
 
   const fetchBorrowed = async () => {
     try {
@@ -61,20 +59,31 @@ const BorrowedBooksPage: React.FC = () => {
 
   return (
     <div>
-      <Typography variant="h5" sx={{ mb: 2 }}>
-        Borrowed Books
+      <Typography variant="h4"
+        sx={{
+          fontWeight: 'bold',
+          mb: 3,
+          color: '#1e293b'
+        }}>
+        Trenutno pozajmljene knjige
       </Typography>
 
-      <TableContainer component={Paper}>
+      <TableContainer component={Paper}
+         sx={{
+          borderRadius: 3,
+          boxShadow: '0 8px 24px rgba(0,0,0,0.08)',
+          overflow: 'hidden'
+        }}
+      >
         <Table>
           <TableHead>
-            <TableRow>
-              <TableCell><b>Ime</b></TableCell>
-              <TableCell><b>Prezime</b></TableCell>
-              <TableCell><b>Datum pozajmljivanja</b></TableCell>
-              <TableCell><b>Datum vracanja</b></TableCell>
-              <TableCell><b>Knjiga</b></TableCell>
-              <TableCell><b>Akcije</b></TableCell>
+            <TableRow sx={{background: 'linear-gradient(90deg, #1976d2, #42a5f5)'}}>
+              <TableCell sx={{ color: '#fff', fontWeight: 'bold' }}>Ime</TableCell>
+              <TableCell sx={{ color: '#fff', fontWeight: 'bold' }}>Prezime</TableCell>
+              <TableCell sx={{ color: '#fff', fontWeight: 'bold' }}>Datum pozajmljivanja</TableCell>
+              <TableCell sx={{ color: '#fff', fontWeight: 'bold' }}>Datum vracanja</TableCell>
+              <TableCell sx={{ color: '#fff', fontWeight: 'bold' }}>Knjiga</TableCell>
+              <TableCell sx={{ color: '#fff', fontWeight: 'bold' }}>Akcije</TableCell>
             </TableRow>
           </TableHead>
 
@@ -93,7 +102,7 @@ const BorrowedBooksPage: React.FC = () => {
                         color="success"
                         onClick={() => handleReturn(b.id)}
                       >
-                        Return
+                        Vrati
                       </Button>
                     )}
                   </TableCell>
