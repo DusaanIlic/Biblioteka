@@ -1,22 +1,34 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Sidebar from './components/Sidebar';
 import BooksPage from './pages/BooksPage';
-import { Container, Typography } from '@mui/material';
 import BorrowedBooksPage from './pages/BorrowedBooksPage';
+import { Box } from '@mui/material';
+
 
 function App() {
   return (
     <Router>
-      <Container maxWidth="md">
-        <Typography variant="h4" sx={{ my: 3 }}>
-          📚 Biblioteka
-        </Typography>
+      <Box sx={{ display: 'flex' }}>
+        
+        {/* Sidebar */}
+        <Sidebar />
 
-        <Routes>
-          <Route path="/borrowed" element={<BorrowedBooksPage />} />
-          <Route path="/books" element={<BooksPage />} />
-          <Route path="/" element={<BooksPage />} />
-        </Routes>
-      </Container>
+        {/* Glavni sadržaj */}
+        <Box
+          component="main"
+          sx={{
+            flexGrow: 1,
+            p: 3,
+          }}
+        >
+          <Routes>
+            <Route path='/' element={<BooksPage />}></Route>
+            <Route path="/books" element={<BooksPage />} />
+            <Route path="/borrowed" element={<BorrowedBooksPage />} />
+          </Routes>
+        </Box>
+
+      </Box>
     </Router>
   );
 }

@@ -1,4 +1,3 @@
-// src/pages/BorrowedBooksPage.tsx
 import React, { useEffect, useState } from 'react';
 import { getBorrowedBooks, returnBook } from '../services/api';
 import { useNavigate } from 'react-router-dom';
@@ -66,25 +65,16 @@ const BorrowedBooksPage: React.FC = () => {
         Borrowed Books
       </Typography>
 
-      <Button
-          variant="outlined"
-          color="secondary"
-          sx={{ mb: 2 }}
-          onClick={() => navigate("/books")}
-        >
-          View All Books
-      </Button>
-
       <TableContainer component={Paper}>
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell><b>First Name</b></TableCell>
-              <TableCell><b>Last Name</b></TableCell>
-              <TableCell><b>Date Taken</b></TableCell>
-              <TableCell><b>Date Return</b></TableCell>
-              <TableCell><b>Book</b></TableCell>
-              <TableCell><b>Actions</b></TableCell>
+              <TableCell><b>Ime</b></TableCell>
+              <TableCell><b>Prezime</b></TableCell>
+              <TableCell><b>Datum pozajmljivanja</b></TableCell>
+              <TableCell><b>Datum vracanja</b></TableCell>
+              <TableCell><b>Knjiga</b></TableCell>
+              <TableCell><b>Akcije</b></TableCell>
             </TableRow>
           </TableHead>
 

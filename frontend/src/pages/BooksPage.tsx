@@ -70,28 +70,18 @@ const BookPage: React.FC = () => {
   return (
     <div>
         <Typography variant="h5" sx={{ mb: 2 }}>
-        Book Colletion
+        Kolekcija knjiga
       </Typography>
-
-        <Button
-        variant="outlined"
-        color="secondary"
-        sx={{ mb: 2 }}
-        onClick={() => navigate("/borrowed")}
-      >
-        View Borrowed Books
-      </Button>
-
 
       <TableContainer component={Paper}>
       <Table>
         <TableHead>
           <TableRow>
-            <TableCell><b>Title</b></TableCell>
-            <TableCell><b>Author</b></TableCell>
-            <TableCell><b>Release Date</b></TableCell>
-            <TableCell><b>Quantity</b></TableCell>
-            <TableCell><b>Actions</b></TableCell>
+            <TableCell><b>Naslov</b></TableCell>
+            <TableCell><b>Autor</b></TableCell>
+            <TableCell><b>Datum izdavanja</b></TableCell>
+            <TableCell><b>Kolicina</b></TableCell>
+            <TableCell><b>Akcije</b></TableCell>
           </TableRow>
         </TableHead>
 
