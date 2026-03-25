@@ -77,7 +77,7 @@ const BorrowedBooksPage: React.FC = () => {
           mb: 3,
           color: '#1e293b'
         }}>
-        Trenutno pozajmljene knjige
+        Тренутно позајмљене књиге
       </Typography>
 
       <TableContainer component={Paper}
@@ -90,12 +90,12 @@ const BorrowedBooksPage: React.FC = () => {
         <Table>
           <TableHead>
             <TableRow sx={{background: 'linear-gradient(90deg, #1976d2, #42a5f5)'}}>
-              <TableCell sx={{ color: '#fff', fontWeight: 'bold' }}>Ime</TableCell>
-              <TableCell sx={{ color: '#fff', fontWeight: 'bold' }}>Prezime</TableCell>
-              <TableCell sx={{ color: '#fff', fontWeight: 'bold' }}>Datum pozajmljivanja</TableCell>
-              <TableCell sx={{ color: '#fff', fontWeight: 'bold' }}>Datum vracanja</TableCell>
-              <TableCell sx={{ color: '#fff', fontWeight: 'bold' }}>Knjiga</TableCell>
-              <TableCell sx={{ color: '#fff', fontWeight: 'bold' }}>Akcije</TableCell>
+              <TableCell sx={{ color: '#fff', fontWeight: 'bold' }}>Име</TableCell>
+              <TableCell sx={{ color: '#fff', fontWeight: 'bold' }}>Презиме</TableCell>
+              <TableCell sx={{ color: '#fff', fontWeight: 'bold' }}>Датум позајмљивања</TableCell>
+              <TableCell sx={{ color: '#fff', fontWeight: 'bold' }}>Датум враћања</TableCell>
+              <TableCell sx={{ color: '#fff', fontWeight: 'bold' }}>Књига</TableCell>
+              <TableCell sx={{ color: '#fff', fontWeight: 'bold' }}>Aкције</TableCell>
             </TableRow>
           </TableHead>
 

@@ -18,7 +18,7 @@ const Sidebar: React.FC = () => {
     >
       <Toolbar>
         <Typography variant="h6" sx={{ fontWeight: 'bold', color: '#1976d2' }}>
-        📚 Biblioteka
+        📚 Библиотека
         </Typography>
       </Toolbar>
 
@@ -33,7 +33,7 @@ const Sidebar: React.FC = () => {
               backgroundColor: '#e3f2fd'
             }
           }}>
-          <ListItemText primary="Knjige" />
+          <ListItemText primary="Књиге" />
         </ListItemButton>
 
         <ListItemButton onClick={() => navigate("/borrowed")}
@@ -45,7 +45,7 @@ const Sidebar: React.FC = () => {
                   backgroundColor: '#e3f2fd'
                }
         }}>
-          <ListItemText primary="Pozajmljene knjige" />
+          <ListItemText primary="Позајмљене књиге" />
         </ListItemButton>
       </List>
     </Drawer>

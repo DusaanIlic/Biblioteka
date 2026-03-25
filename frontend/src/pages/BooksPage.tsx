@@ -14,7 +14,9 @@ import {
   CircularProgress,
   Alert,
   Typography,
-  TablePagination
+  TablePagination,
+  TextField,
+  Box
 } from '@mui/material';
 
 interface Book {
@@ -33,6 +35,8 @@ const BookPage: React.FC = () => {
   const [selectedBook, setSelectedBook] = useState<number | null>(null);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(20);
+  const [searchTitle, setSearchTitle] = useState('');
+  const [searchAuthor, setSearchAuthor] = useState('');
 
   const fetchBooks = async () => {
     try {
@@ -45,6 +49,18 @@ const BookPage: React.FC = () => {
       setLoading(false);
     }
   };
+
+  const filteredBooks = books.filter((b) => {
+    const matchesTitle = b.title
+      .toLowerCase()
+      .includes(searchTitle.toLowerCase());
+  
+    const matchesAuthor = b.author
+      .toLowerCase()
+      .includes(searchAuthor.toLowerCase());
+  
+    return matchesTitle && matchesAuthor;
+  });
 
   const handleDelete = async (id: number) => {
     if (!window.confirm('Da li si siguran?')) return;
@@ -86,28 +102,55 @@ const BookPage: React.FC = () => {
           mb: 3,
           color: '#1e293b'
         }}>
-        Kolekcija knjiga
+        Колекција књига
       </Typography>
+
+      <Box sx={{ display: 'flex', gap: 2, mb: 2 }}>
+        <TextField
+          label="Претражи по називу књиге..."
+          variant="outlined"
+          fullWidth
+          value={searchTitle}
+          onChange={(e) => {
+            setSearchTitle(e.target.value);
+            setPage(0);
+          }}
+        />
+
+        <TextField
+          label="Претражи по имену аутора..."
+          variant="outlined"
+          fullWidth
+          value={searchAuthor}
+          onChange={(e) => {
+            setSearchAuthor(e.target.value);
+            setPage(0);
+          }}
+        />
+      </Box>  
+
+
 
       <TableContainer component={Paper} sx={{
         borderRadius: 3,
         boxShadow: '0 8px 24px rgba(0,0,0,0.08)',
+        //maxHeight: '75vh',
+        //overflow: 'auto'
         overflow: 'hidden'
       }}>
-      <Table>
-      
+      <Table> 
         <TableHead>
           <TableRow sx={{background: 'linear-gradient(90deg, #1976d2, #42a5f5)'}}>
-            <TableCell sx={{ color: '#fff', fontWeight: 'bold' }}>Naslov</TableCell>
-            <TableCell sx={{ color: '#fff', fontWeight: 'bold' }}>Autor</TableCell>
-            <TableCell sx={{ color: '#fff', fontWeight: 'bold' }}>Redni broj</TableCell>
-            <TableCell sx={{ color: '#fff', fontWeight: 'bold' }}>Količina</TableCell>
-            <TableCell sx={{ color: '#fff', fontWeight: 'bold' }}>Akcije</TableCell>
+            <TableCell sx={{ color: '#fff', fontWeight: 'bold' }}>Наслов</TableCell>
+            <TableCell sx={{ color: '#fff', fontWeight: 'bold' }}>Аутор</TableCell>
+            <TableCell sx={{ color: '#fff', fontWeight: 'bold' }}>Редни број</TableCell>
+            <TableCell sx={{ color: '#fff', fontWeight: 'bold' }}>Количина</TableCell>
+            <TableCell sx={{ color: '#fff', fontWeight: 'bold' }}>Aкције</TableCell>
           </TableRow>
         </TableHead>
 
         <TableBody>
-          {books.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((b) => (
+          {filteredBooks.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((b) => (
             <TableRow key={b.id_book} sx={{'&:hover': {backgroundColor: '#f1f5f9',transition: '0.2s'}}}>
               <TableCell>{b.title}</TableCell>
               <TableCell>{b.author}</TableCell>
@@ -128,7 +171,7 @@ const BookPage: React.FC = () => {
                   }}
                   onClick={() => setSelectedBook(b.id_book)}
                 >
-                  Pozajmi
+                  Позајми
                 </Button>
 
                 <Button
@@ -144,7 +187,7 @@ const BookPage: React.FC = () => {
                   }}
                   onClick={() => handleDelete(b.id_book)}
                 >
-                  Obriši
+                  Обриши
                 </Button>
               </TableCell>
             </TableRow>
@@ -160,7 +203,7 @@ const BookPage: React.FC = () => {
       </Table>
       <TablePagination
           component="div"
-          count={books.length}
+          count={filteredBooks.length}
           page={page}
           onPageChange={handleChangePage}
           rowsPerPage={rowsPerPage}
