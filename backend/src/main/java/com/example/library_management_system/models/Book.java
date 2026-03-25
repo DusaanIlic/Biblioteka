@@ -13,8 +13,9 @@ public class Book {
     private Integer id_book;
     private String title;
     private String author;
-    private String release_date;
+    private String serial_number;
     private Integer quantity;
+
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -22,11 +23,11 @@ public class Book {
 
     public Book() {}
 
-    public Book(Integer id_book, String title, String author, String release_date, Integer quantity) {
+    public Book(Integer id_book, String title, String author, String serial_number, Integer quantity) {
         this.id_book = id_book;
         this.title = title;
         this.author = author;
-        this.release_date = release_date;
+        this.serial_number = serial_number;
         this.quantity = quantity;
     }
 

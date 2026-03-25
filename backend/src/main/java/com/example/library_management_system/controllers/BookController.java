@@ -82,7 +82,7 @@ public class BookController {
         Book book = existingBook.get();
         book.setTitle(bookToUpdate.getTitle());
         book.setAuthor(bookToUpdate.getAuthor());
-        book.setRelease_date(bookToUpdate.getRelease_date());
+        book.setSerial_number(bookToUpdate.getSerial_number());
         book.setQuantity(bookToUpdate.getQuantity());
 
         Book savedBook = bookService.update(book);

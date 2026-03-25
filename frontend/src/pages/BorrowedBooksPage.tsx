@@ -12,7 +12,8 @@ import {
   CircularProgress,
   Alert,
   Typography,
-  Button
+  Button,
+  TablePagination
 } from '@mui/material';
 
 interface BorrowedBook {
@@ -28,6 +29,8 @@ const BorrowedBooksPage: React.FC = () => {
   const [data, setData] = useState<BorrowedBook[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(20);
 
   const fetchBorrowed = async () => {
     try {
@@ -48,6 +51,15 @@ const BorrowedBooksPage: React.FC = () => {
     } catch (err) {
       console.error('Error returning book:', err);
     }
+  };
+
+  const handleChangePage = (event: unknown, newPage: number) => {
+    setPage(newPage);
+  };
+  
+  const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
   };
 
   useEffect(() => {
@@ -88,7 +100,7 @@ const BorrowedBooksPage: React.FC = () => {
           </TableHead>
 
           <TableBody>
-            {data.map((b) => (
+            {data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((b) => (
               <TableRow key={b.id}>
                 <TableCell>{b.firstname}</TableCell>
                 <TableCell>{b.lastname}</TableCell>
@@ -110,6 +122,15 @@ const BorrowedBooksPage: React.FC = () => {
             ))}
           </TableBody>
         </Table>
+        <TablePagination
+          component="div"
+          count={data.length}
+          page={page}
+          onPageChange={handleChangePage}
+          rowsPerPage={rowsPerPage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+          rowsPerPageOptions={[5, 10, 20, 50]}
+        />
       </TableContainer>
     </div>
   );

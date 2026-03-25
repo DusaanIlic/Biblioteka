@@ -17,7 +17,6 @@ function App() {
           sx={{
             flexGrow: 1,
             p: 4,
-            backgroundColor: '#f4f6f8',
             minHeight: '100vh'
           }}
         >

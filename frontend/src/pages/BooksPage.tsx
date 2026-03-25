@@ -13,7 +13,8 @@ import {
   Button,
   CircularProgress,
   Alert,
-  Typography
+  Typography,
+  TablePagination
 } from '@mui/material';
 
 interface Book {
@@ -22,6 +23,7 @@ interface Book {
   author: string;
   release_date: string;
   quantity: number;
+  serial_number: string;
 }
 
 const BookPage: React.FC = () => {
@@ -29,6 +31,8 @@ const BookPage: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [selectedBook, setSelectedBook] = useState<number | null>(null);
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(20);
 
   const fetchBooks = async () => {
     try {
@@ -58,6 +62,15 @@ const BookPage: React.FC = () => {
     fetchBooks();
   };
 
+  const handleChangePage = (event: unknown, newPage: number) => {
+    setPage(newPage);
+  };
+  
+  const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
+
   useEffect(() => {
     fetchBooks();
   }, []);
@@ -82,22 +95,23 @@ const BookPage: React.FC = () => {
         overflow: 'hidden'
       }}>
       <Table>
+      
         <TableHead>
           <TableRow sx={{background: 'linear-gradient(90deg, #1976d2, #42a5f5)'}}>
             <TableCell sx={{ color: '#fff', fontWeight: 'bold' }}>Naslov</TableCell>
             <TableCell sx={{ color: '#fff', fontWeight: 'bold' }}>Autor</TableCell>
-            <TableCell sx={{ color: '#fff', fontWeight: 'bold' }}>Datum izdavanja</TableCell>
+            <TableCell sx={{ color: '#fff', fontWeight: 'bold' }}>Redni broj</TableCell>
             <TableCell sx={{ color: '#fff', fontWeight: 'bold' }}>Količina</TableCell>
             <TableCell sx={{ color: '#fff', fontWeight: 'bold' }}>Akcije</TableCell>
           </TableRow>
         </TableHead>
 
         <TableBody>
-          {books.map((b) => (
+          {books.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((b) => (
             <TableRow key={b.id_book} sx={{'&:hover': {backgroundColor: '#f1f5f9',transition: '0.2s'}}}>
               <TableCell>{b.title}</TableCell>
               <TableCell>{b.author}</TableCell>
-              <TableCell>{b.release_date}</TableCell>
+              <TableCell>{b.serial_number}</TableCell>
               <TableCell>{b.quantity}</TableCell>
               <TableCell>
               <Button
@@ -144,6 +158,15 @@ const BookPage: React.FC = () => {
           />
         )}
       </Table>
+      <TablePagination
+          component="div"
+          count={books.length}
+          page={page}
+          onPageChange={handleChangePage}
+          rowsPerPage={rowsPerPage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+          rowsPerPageOptions={[5, 10, 20, 50]}
+      />
     </TableContainer>
   </div>
   );
