@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { getBooks, deleteBook } from '../services/api';
 import BorrowForm from '../components/BorrowForm';
+import type { Book } from '../types/Book';
 
 import {
   Table,
@@ -19,14 +20,7 @@ import {
   Box
 } from '@mui/material';
 
-interface Book {
-  id_book: number;
-  title: string;
-  author: string;
-  release_date: string;
-  quantity: number;
-  serial_number: string;
-}
+
 
 const BookPage: React.FC = () => {
   const [books, setBooks] = useState<Book[]>([]);
@@ -55,7 +49,7 @@ const BookPage: React.FC = () => {
       .toLowerCase()
       .includes(searchTitle.toLowerCase());
   
-    const matchesAuthor = b.author
+    const matchesAuthor = (b.author || '')
       .toLowerCase()
       .includes(searchAuthor.toLowerCase());
   
@@ -153,7 +147,7 @@ const BookPage: React.FC = () => {
           {filteredBooks.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((b) => (
             <TableRow key={b.id_book} sx={{'&:hover': {backgroundColor: '#f1f5f9',transition: '0.2s'}}}>
               <TableCell>{b.title}</TableCell>
-              <TableCell>{b.author}</TableCell>
+              <TableCell>{b.author && b.author.toLowerCase() !== 'unknown' ? b.author : 'Непознати аутор'}</TableCell>
               <TableCell>{b.serial_number}</TableCell>
               <TableCell>{b.quantity}</TableCell>
               <TableCell>

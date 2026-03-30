@@ -17,7 +17,17 @@ public class BorrowedBook {
 
     private String firstname;
     private String lastname;
-    private LocalDate dateTake;
-    private LocalDate dateReturn;
+
+    @Column(name = "date_take")
+    private String dateTake;
+
+    @Column(name = "date_return")
+    private String dateReturn;
+
+    @Column(name = "id_book")
     private Integer idBook;
+
+    @ManyToOne
+    @JoinColumn(name = "id_book", insertable = false, updatable = false)
+    private Book book;
 }

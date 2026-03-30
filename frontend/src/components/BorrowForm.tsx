@@ -24,9 +24,11 @@ const BorrowForm: React.FC<Props> = ({ bookId, onClose, onBorrowed }) => {
     e.preventDefault();
     try {
       await borrowBook({
-        id_book: bookId,
+        idBook: bookId,
         firstname,
         lastname,
+        dateTake: new Date().toISOString(),
+        dateReturn: null
       });
       onBorrowed(bookId);
       onClose();

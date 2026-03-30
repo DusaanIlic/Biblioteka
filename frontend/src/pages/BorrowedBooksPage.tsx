@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { getBorrowedBooks, returnBook } from '../services/api';
+import type { BorrowedBook } from '../types/BorrowedBook';
 
 import {
   Table,
@@ -16,14 +17,7 @@ import {
   TablePagination
 } from '@mui/material';
 
-interface BorrowedBook {
-  id: number;
-  firstname: string;
-  lastname: string;
-  date_take: string;
-  date_return: string | null;
-  id_book: number;
-}
+
 
 const BorrowedBooksPage: React.FC = () => {
   const [data, setData] = useState<BorrowedBook[]>([]);
@@ -104,11 +98,11 @@ const BorrowedBooksPage: React.FC = () => {
               <TableRow key={b.id}>
                 <TableCell>{b.firstname}</TableCell>
                 <TableCell>{b.lastname}</TableCell>
-                <TableCell>{b.date_take}</TableCell>
-                <TableCell>{b.date_return || 'Not returned'}</TableCell>
-                <TableCell>{b.id_book}</TableCell>
+                <TableCell>{new Date(b.dateTake).toLocaleDateString('sr-RS')}</TableCell>
+                <TableCell> {b.dateReturn ? new Date(b.dateReturn).toLocaleDateString('sr-RS') : 'Nije vraćena'}</TableCell>
+                <TableCell>{b.book?.title}</TableCell>
                 <TableCell>
-                    {!b.date_return && (
+                    {!b.dateReturn && (
                       <Button
                         variant="contained"
                         color="success"
