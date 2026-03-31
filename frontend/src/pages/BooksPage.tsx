@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { getBooks, deleteBook } from '../services/api';
 import BorrowForm from '../components/BorrowForm';
 import type { Book } from '../types/Book';
+import AddBookForm from '../components/AddBookForm';
 
 import {
   Table,
@@ -31,6 +32,7 @@ const BookPage: React.FC = () => {
   const [rowsPerPage, setRowsPerPage] = useState(20);
   const [searchTitle, setSearchTitle] = useState('');
   const [searchAuthor, setSearchAuthor] = useState('');
+  const [openAdd, setOpenAdd] = useState(false);
 
   const fetchBooks = async () => {
     try {
@@ -99,12 +101,12 @@ const BookPage: React.FC = () => {
         Колекција књига
       </Typography>
 
-      <Box sx={{ display: 'flex', gap: 2, mb: 2 }}>
+      <Box sx={{ display: 'flex', gap: 2, mb: 3, alignItems: 'center' }}>
         <TextField
           label="Претражи по називу књиге..."
           variant="outlined"
-          fullWidth
           value={searchTitle}
+          fullWidth
           onChange={(e) => {
             setSearchTitle(e.target.value);
             setPage(0);
@@ -114,13 +116,22 @@ const BookPage: React.FC = () => {
         <TextField
           label="Претражи по имену аутора..."
           variant="outlined"
-          fullWidth
           value={searchAuthor}
+          fullWidth
           onChange={(e) => {
             setSearchAuthor(e.target.value);
             setPage(0);
           }}
         />
+
+        <Button
+              variant="contained"
+              color="success"
+              onClick={() => setOpenAdd(true)}
+              sx={{ ml: 'auto', fontWeight: 'bold' }}
+            >
+              Додај књигу
+        </Button>
       </Box>  
 
 
@@ -195,6 +206,12 @@ const BookPage: React.FC = () => {
           />
         )}
       </Table>
+      {openAdd && (
+  <AddBookForm
+    onClose={() => setOpenAdd(false)}
+    onAdded={fetchBooks}
+  />
+)}
       <TablePagination
           component="div"
           count={filteredBooks.length}

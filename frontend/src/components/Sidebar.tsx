@@ -2,7 +2,7 @@ import React from 'react';
 import { Drawer, List, ListItemButton, ListItemText, Toolbar, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
-const drawerWidth = 240;
+const drawerWidth = 300;
 
 const Sidebar: React.FC = () => {
   const navigate = useNavigate();
@@ -17,12 +17,12 @@ const Sidebar: React.FC = () => {
       }}
     >
       <Toolbar>
-        <Typography variant="h6" sx={{ fontWeight: 'bold', color: 'black' }}>
-        📚 Библиотека
+        <Typography variant="h4" sx={{ fontWeight: 'bold', color: 'black', marginTop: 3, marginBottom: 3 }}>
+        Библиотека
         </Typography>
       </Toolbar>
 
-      {/* Linkovi */}
+      
       <List>
         <ListItemButton onClick={() => navigate("/books")}
         sx={{
@@ -46,6 +46,18 @@ const Sidebar: React.FC = () => {
                }
         }}>
           <ListItemText primary="Позајмљене књиге" />
+        </ListItemButton>
+
+        <ListItemButton onClick={() => navigate("/users")}
+        sx={{
+                borderRadius: 2,
+                mx: 1,
+                my: 0.5,
+                '&:hover': {
+                  backgroundColor: '#e3f2fd'
+               }
+        }}>
+          <ListItemText primary="Корисници" />
         </ListItemButton>
       </List>
     </Drawer>

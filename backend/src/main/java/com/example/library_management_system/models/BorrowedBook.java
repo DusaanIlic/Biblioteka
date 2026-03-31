@@ -19,10 +19,10 @@ public class BorrowedBook {
     private String lastname;
 
     @Column(name = "date_take")
-    private String dateTake;
+    private LocalDate dateTake;
 
     @Column(name = "date_return")
-    private String dateReturn;
+    private LocalDate dateReturn;
 
     @Column(name = "id_book")
     private Integer idBook;

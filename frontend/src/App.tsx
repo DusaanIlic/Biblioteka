@@ -3,6 +3,7 @@ import Sidebar from './components/Sidebar';
 import BooksPage from './pages/BooksPage';
 import BorrowedBooksPage from './pages/BorrowedBooksPage';
 import { Box } from '@mui/material';
+import UsersPage from './pages/UserPage';
 
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
             <Route path='/' element={<BooksPage />}></Route>
             <Route path="/books" element={<BooksPage />} />
             <Route path="/borrowed" element={<BorrowedBooksPage />} />
+            <Route path="/users" element={<UsersPage/>}/>
           </Routes>
         </Box>
 
